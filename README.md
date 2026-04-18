@@ -1,27 +1,50 @@
 # Manga Reader 📚
 
-Gerenciador e leitor de mangás em PDF com persistência local em JSON. O app é totalmente portátil: basta apontar a pasta onde estão seus mangás e seu progresso será salvo automaticamente em um arquivo na própria pasta da biblioteca.
+Um leitor de mangás moderno, rápido e modular, desenvolvido em **JavaFX 21**. Este projeto foi projetado para oferecer uma experiência de leitura fluida, com foco em portabilidade e performance, permitindo que você gerencie sua biblioteca de PDFs com facilidade.
 
-## ✨ Funcionalidades
-- **Suporte a Múltiplas Bibliotecas**: Adicione várias pastas de mangás simultaneamente.
-- **Scan Inteligente**: Detecta novos capítulos e atualiza capas sem duplicar entradas.
-- **Visual Moderno**: Interface em Dark Mode com badges de progresso e favoritos.
-- **Troca de Capas**: Escolha qualquer imagem do computador para ser a capa do seu mangá.
-- **Leitor Integrado**: Navegação por teclado, zoom com mouse e salvamento automático de progresso.
+> [!IMPORTANT]
+> **Projeto Desenvolvido com Inteligência Artificial** 🤖
+> Este software foi inteiramente desenvolvido, refatorado e otimizado através de uma parceria entre o desenvolvedor e a IA **Antigravity (Google DeepMind)**. O código segue padrões modernos de engenharia, demonstrando o potencial da colaboração humano-IA no desenvolvimento de software de alta performance.
 
 ---
 
-## 🚀 Como Rodar
+## ✨ Funcionalidades Principais
 
-### Pré-requisitos
-- **JDK 21** instalado e configurado no PATH.
-- **Maven** instalado.
+- **Leitura Dual Mode**:
+  - **Modo Paginação**: Navegação clássica página a página.
+  - **Modo Rolo (Vertical)**: Leitura contínua com **Virtual Scrolling** (Lazy Loading), carregando apenas o que você está vendo para economizar memória.
+- **Gerenciamento de Zoom**:
+  - Zoom dinâmico com `Ctrl + Scroll` do mouse.
+  - Persistência automática: o nível de zoom é mantido ao trocar de páginas.
+  - Exibição da porcentagem de ampliação em tempo real.
+- **Suporte a WebP**: Renderização nativa de capas e imagens WebP via ImageIO.
+- **Arquitetura Portátil**:
+  - Não utiliza SQL externo por padrão; os dados são salvos em um arquivo `manga-reader-data.json` dentro da sua própria biblioteca.
+  - Leve o seu HD externo com seus mangás e o progresso irá junto!
+- **Scan Inteligente**: Reconhecimento automático de volumes, capítulos e capas (`cover.jpg`, `folder.jpg`, etc).
 
-### Compilação e Execução
+---
+
+## 🛠️ Tecnologias Utilizadas
+
+- **Linguagem**: Java 21 (JDK 21)
+- **Interface**: JavaFX 21
+- **Processamento de PDF**: Apache PDFBox 3.0
+- **Persistência**: GSON (JSON-based database)
+- **Gerenciamento de Dependências**: Maven (Multi-module)
+
+---
+
+## 🚀 Como Executar
+
+### Para Usuários (Executável)
+Basta baixar a versão mais recente na aba [Releases](https://github.com/cauagabrielmateusayres/Mang-Read/releases), extrair o ZIP e rodar o `MangaReader.exe`.
+
+### Para Desenvolvedores (Código Fonte)
 ```powershell
 # 1. Clone o repositório
-git clone https://github.com/seu-usuario/manga-reader.git
-cd manga-reader
+git clone https://github.com/cauagabrielmateusayres/Mang-Read.git
+cd Mang-Read
 
 # 2. Compile o projeto
 mvn clean install -DskipTests
@@ -32,46 +55,37 @@ mvn javafx:run -pl manga-reader-app
 
 ---
 
-## 🗂️ Estrutura de Pastas Recomendada
-Para o melhor funcionamento do scan, organize seus mangás da seguinte forma:
-```
-MinhaBiblioteca/
-├── Naruto/
-│   ├── capitulo_01.pdf
-│   ├── capitulo_02.pdf
-│   └── cover.jpg (opcional)
-├── One Piece/
-│   ├── volume_01.pdf
-│   └── volume_02.pdf
-```
-
----
-
-## ⌨️ Atalhos no Leitor
+## ⌨️ Atalhos de Teclado
 
 | Tecla | Ação |
 |-------|------|
-| `→` ou `Espaço` | Próxima página |
-| `←` | Página anterior |
-| `Page Down` | Próximo capítulo |
-| `Page Up` | Capítulo anterior |
-| `Ctrl` + `+ / -` | Zoom In / Out |
-| `Ctrl` + `Scroll` | Zoom In / Out (Mouse) |
+| `→` / `Espaço` | Próxima Página |
+| `←` | Página Anterior |
+| `Page Down` | Próximo Capítulo |
+| `Page Up` | Capítulo Anterior |
+| `Ctrl + Scroll` | Zoom In/Out |
+| `F` | Alternar Modo Favorito |
 
 ---
 
-## 🖼️ Capas dos Mangás
-O app tenta encontrar automaticamente uma capa para o seu mangá.
-1. Coloque uma imagem (JPG, PNG ou WEBP) dentro da pasta do mangá.
-2. Nomeie-a preferencialmente como `cover.jpg` ou `folder.jpg`.
-3. Se não aparecer, você pode clicar com o **botão direito** no card na biblioteca e selecionar **"Mudar Capa"** para escolher uma imagem manualmente.
+## 🏗️ Estrutura do Projeto
+
+O projeto utiliza uma arquitetura modular Maven para separação de responsabilidades:
+- `manga-reader-core`: Contém as regras de negócio, modelos de dados e definições de serviços.
+- `manga-reader-persistence`: Camada de acesso a dados usando repositórios JSON.
+- `manga-reader-app`: O "coração" da aplicação UI, gerenciando a renderização de PDFs e eventos de usuário.
 
 ---
 
-## 🏗️ Arquitetura
-O projeto é dividido em módulos Maven para melhor organização:
-- `manga-reader-core`: Regras de negócio, modelos e interfaces.
-- `manga-reader-persistence`: Implementação de banco de dados baseado em arquivos JSON (`manga-reader-data.json`).
-- `manga-reader-app`: Interface gráfica em JavaFX e renderização de PDFs.
+## 🤝 Contribuições
 
+Este é um projeto de código aberto. Sinta-se à vontade para abrir **Issues** ou enviar **Pull Requests**!
 
+---
+
+## 📄 Licença
+
+Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+
+---
+*Desenvolvido com ❤️ e ⚡ por KablshE & Antigravity AI.*
