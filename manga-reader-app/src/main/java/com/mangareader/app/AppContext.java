@@ -34,7 +34,7 @@ public class AppContext {
 
         // 3. Build services
         authService     = new AuthService(userRepo);
-        libraryService  = new LibraryService(mangaRepo, chapterRepo);
+        libraryService  = new LibraryService(mangaRepo, chapterRepo, config.getLibraryPath());
         progressService = new ProgressService(progressRepo, chapterRepo);
 
         // 4. Auto-login as local user

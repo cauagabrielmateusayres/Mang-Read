@@ -23,18 +23,56 @@ public class LibraryService {
 
     private final MangaRepository mangaRepository;
     private final ChapterRepository chapterRepository;
+    private final String baseDir;
 
-    public LibraryService(MangaRepository mangaRepository, ChapterRepository chapterRepository) {
+    public LibraryService(MangaRepository mangaRepository, ChapterRepository chapterRepository, String baseDir) {
         this.mangaRepository = mangaRepository;
         this.chapterRepository = chapterRepository;
+        this.baseDir = baseDir;
     }
 
     public List<Manga> getAllMangas() {
-        return mangaRepository.findAll();
+        List<Manga> mangas = mangaRepository.findAll();
+        mangas.forEach(this::resolveMangaPaths);
+        return mangas;
     }
 
     public List<Chapter> getChapters(int mangaId) {
-        return chapterRepository.findByMangaId(mangaId);
+        List<Chapter> chapters = chapterRepository.findByMangaId(mangaId);
+        chapters.forEach(this::resolveChapterPaths);
+        return chapters;
+    }
+
+    private void resolveMangaPaths(Manga manga) {
+        manga.setFolderPath(resolvePath(manga.getFolderPath()));
+        if (manga.getCoverPath() != null) {
+            manga.setCoverPath(resolvePath(manga.getCoverPath()));
+        }
+    }
+
+    private void resolveChapterPaths(Chapter chapter) {
+        chapter.setFilePath(resolvePath(chapter.getFilePath()));
+    }
+
+    private String resolvePath(String path) {
+        if (path == null || path.isBlank()) return path;
+        java.nio.file.Path p = java.nio.file.Paths.get(path);
+        if (p.isAbsolute()) return path;
+        return java.nio.file.Paths.get(baseDir).resolve(p).toAbsolutePath().toString();
+    }
+
+    private String relativizePath(String path) {
+        if (path == null || path.isBlank() || baseDir == null || baseDir.isBlank()) return path;
+        try {
+            java.nio.file.Path base = java.nio.file.Paths.get(baseDir).toAbsolutePath();
+            java.nio.file.Path target = java.nio.file.Paths.get(path).toAbsolutePath();
+            if (target.startsWith(base)) {
+                return base.relativize(target).toString();
+            }
+        } catch (Exception e) {
+            // Fallback to absolute if relativization fails (e.g. different drives)
+        }
+        return path;
     }
 
     /**
@@ -116,20 +154,26 @@ public class LibraryService {
     private void processMangaFolder(File mangaDir, File[] pdfs, List<String> errors, ScanCounter counter) {
         try {
             String absPath = mangaDir.getAbsolutePath();
-            var existingManga = mangaRepository.findByFolderPath(absPath);
+            String relPath = relativizePath(absPath);
+            
+            // Search using both to be safe, but prioritize relPath if it changed
+            var existingManga = mangaRepository.findByFolderPath(relPath);
+            if (existingManga.isEmpty() && !relPath.equals(absPath)) {
+                existingManga = mangaRepository.findByFolderPath(absPath);
+            }
             
             Manga manga;
             if (existingManga.isPresent()) {
                 manga = existingManga.get();
-                // Update title and cover if needed
                 manga.setTitle(mangaDir.getName());
+                manga.setFolderPath(relPath); // Update to relative
                 File cover = findCover(mangaDir);
-                if (cover != null) manga.setCoverPath(cover.getAbsolutePath());
+                if (cover != null) manga.setCoverPath(relativizePath(cover.getAbsolutePath()));
                 mangaRepository.save(manga);
             } else {
-                manga = new Manga(mangaDir.getName(), absPath);
+                manga = new Manga(mangaDir.getName(), relPath);
                 File cover = findCover(mangaDir);
-                if (cover != null) manga.setCoverPath(cover.getAbsolutePath());
+                if (cover != null) manga.setCoverPath(relativizePath(cover.getAbsolutePath()));
                 manga = mangaRepository.save(manga);
             }
             counter.mangasFound++;
@@ -138,22 +182,28 @@ public class LibraryService {
 
             for (int i = 0; i < pdfs.length; i++) {
                 File pdf = pdfs[i];
-                var existingChapter = chapterRepository.findByFilePath(pdf.getAbsolutePath());
+                String absPdfPath = pdf.getAbsolutePath();
+                String relPdfPath = relativizePath(absPdfPath);
+                
+                var existingChapter = chapterRepository.findByFilePath(relPdfPath);
+                if (existingChapter.isEmpty() && !relPdfPath.equals(absPdfPath)) {
+                    existingChapter = chapterRepository.findByFilePath(absPdfPath);
+                }
                 
                 if (existingChapter.isEmpty()) {
                     Chapter ch = new Chapter();
                     ch.setMangaId(manga.getId());
                     ch.setChapterNumber(i + 1);
                     ch.setTitle(stripExtension(pdf.getName()));
-                    ch.setFilePath(pdf.getAbsolutePath());
+                    ch.setFilePath(relPdfPath);
                     ch.setPageCount(0);
                     chapterRepository.save(ch);
                     counter.chaptersFound++;
                 } else {
-                    // Just update metadata if needed
                     Chapter ch = existingChapter.get();
                     ch.setChapterNumber(i + 1);
                     ch.setTitle(stripExtension(pdf.getName()));
+                    ch.setFilePath(relPdfPath); // Update to relative
                     chapterRepository.save(ch);
                 }
             }
@@ -199,7 +249,8 @@ public class LibraryService {
         mangaRepository.delete(manga.getId());
         
         // Delete from disk
-        File folder = new File(manga.getFolderPath());
+        // Ensure we use the resolved path for deletion!
+        File folder = new File(resolvePath(manga.getFolderPath()));
         if (folder.exists() && folder.isDirectory()) {
             deleteDirectory(folder);
         }
@@ -226,10 +277,11 @@ public class LibraryService {
 
     public void updateCover(int mangaId, String coverPath) {
         mangaRepository.findById(mangaId).ifPresent(m -> {
-            m.setCoverPath(coverPath);
+            m.setCoverPath(relativizePath(coverPath));
             mangaRepository.save(m);
         });
     }
 
     public record ScanResult(int mangasFound, int chaptersFound, List<String> errors) {}
 }
+
