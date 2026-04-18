@@ -13,3 +13,4 @@ config.properties
 .DS_Store
 *.tmp
 *.bak
+dist/
