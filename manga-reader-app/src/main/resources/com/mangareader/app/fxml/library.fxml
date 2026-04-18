@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.mangareader.app.ui.controller.LibraryController"
+            styleClass="root-pane">
+
+    <!-- Top Bar -->
+    <top>
+        <HBox styleClass="top-bar" alignment="CENTER_LEFT" spacing="12">
+            <padding><Insets top="14" right="20" bottom="14" left="20"/></padding>
+            <Label text="📚 Manga Reader" styleClass="app-title"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Label fx:id="statusLabel" styleClass="status-label"/>
+            <Button text="🌓 Tema" onAction="#toggleTheme" styleClass="btn-secondary"/>
+            <Button text="⟳  Escanear" onAction="#scanLibrary" styleClass="btn-primary"/>
+            <Button text="⚙  Configurações" onAction="#openSettings" styleClass="btn-secondary"/>
+        </HBox>
+    </top>
+
+    <!-- Manga Grid -->
+    <center>
+        <ScrollPane fitToWidth="true" styleClass="library-scroll">
+            <FlowPane fx:id="mangaGrid"
+                      hgap="18" vgap="18"
+                      styleClass="manga-grid">
+                <padding><Insets top="24" right="24" bottom="24" left="24"/></padding>
+            </FlowPane>
+        </ScrollPane>
+    </center>
+</BorderPane>

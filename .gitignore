@@ -1,0 +1,15 @@
+target/
+*.class
+*.log
+.idea/
+*.iml
+.settings/
+.project
+.classpath
+.vscode/
+bin/
+manga-reader-data.json
+config.properties
+.DS_Store
+*.tmp
+*.bak

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.mangareader.app.ui.controller.SettingsController"
+            styleClass="root-pane">
+
+    <top>
+        <HBox styleClass="top-bar" alignment="CENTER_LEFT" spacing="12">
+            <padding><Insets top="14" right="20" bottom="14" left="20"/></padding>
+            <Label text="⚙ Configurações" styleClass="app-title"/>
+        </HBox>
+    </top>
+
+    <center>
+        <StackPane>
+            <ScrollPane fitToWidth="true" maxWidth="600" maxHeight="500" styleClass="settings-scroll">
+                <VBox spacing="20" alignment="TOP_CENTER" styleClass="settings-container">
+                    <padding><Insets top="32" right="40" bottom="32" left="40"/></padding>
+
+                    <Label text="Pastas da Biblioteca" styleClass="section-title"/>
+                    
+                    <ListView fx:id="pathsListView" prefHeight="150" styleClass="paths-list"/>
+                    
+                    <HBox spacing="10" alignment="CENTER">
+                        <Button text="＋ Adicionar Pasta" onAction="#addPath" styleClass="btn-secondary"/>
+                        <Button text="－ Remover Selecionada" onAction="#removePath" styleClass="btn-danger"/>
+                    </HBox>
+
+                    <Separator/>
+
+                    <!-- Status -->
+                    <Label fx:id="statusLabel" styleClass="status-label" wrapText="true"/>
+
+                    <!-- Save -->
+                    <Button fx:id="saveButton" text="Salvar e Voltar"
+                            onAction="#saveAndClose"
+                            styleClass="btn-primary" maxWidth="Infinity"/>
+                </VBox>
+            </ScrollPane>
+        </StackPane>
+    </center>
+</BorderPane>

@@ -1,0 +1,322 @@
+/* ============================================================
+   Manga Reader — Dark Theme
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+* {
+    -fx-font-family: 'Inter', 'Segoe UI', sans-serif;
+}
+
+/* === Palette === */
+/* bg-dark: #0f0f1a   card: #1a1a2e   accent: #6c63ff   accent2: #ff6b9d */
+
+.root-pane {
+    -fx-background-color: #0f0f1a;
+}
+
+/* === Top Bar === */
+.top-bar {
+    -fx-background-color: #1a1a2e;
+    -fx-border-color: #2a2a4e;
+    -fx-border-width: 0 0 1 0;
+}
+
+.app-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #e0e0ff;
+}
+
+.status-label {
+    -fx-font-size: 12px;
+    -fx-text-fill: #8888bb;
+}
+
+.chapter-label {
+    -fx-font-size: 14px;
+    -fx-font-weight: 600;
+    -fx-text-fill: #c0c0ff;
+}
+
+.page-label {
+    -fx-font-size: 13px;
+    -fx-text-fill: #8888bb;
+}
+
+/* === Buttons === */
+.btn-primary {
+    -fx-background-color: #6c63ff;
+    -fx-text-fill: white;
+    -fx-font-weight: 600;
+    -fx-font-size: 13px;
+    -fx-padding: 8 18;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+}
+.btn-primary:hover {
+    -fx-background-color: #7c73ff;
+    -fx-effect: dropshadow(gaussian, rgba(108,99,255,0.5), 12, 0, 0, 2);
+}
+
+.btn-secondary {
+    -fx-background-color: #2a2a4e;
+    -fx-text-fill: #c0c0ff;
+    -fx-font-size: 13px;
+    -fx-padding: 8 16;
+    -fx-background-radius: 8;
+    -fx-border-color: #3a3a6e;
+    -fx-border-radius: 8;
+    -fx-cursor: hand;
+}
+.btn-secondary:hover {
+    -fx-background-color: #3a3a5e;
+}
+
+.btn-nav {
+    -fx-background-color: #1e1e38;
+    -fx-text-fill: #c0c0ff;
+    -fx-font-size: 13px;
+    -fx-padding: 10 20;
+    -fx-background-radius: 8;
+    -fx-border-color: #3a3a6e;
+    -fx-border-radius: 8;
+    -fx-cursor: hand;
+}
+.btn-nav:hover  { -fx-background-color: #2a2a4e; }
+.btn-nav:disabled { -fx-opacity: 0.35; }
+
+.btn-nav-primary {
+    -fx-background-color: #6c63ff;
+    -fx-text-fill: white;
+    -fx-font-size: 13px;
+    -fx-font-weight: 700;
+    -fx-padding: 10 26;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+}
+.btn-nav-primary:hover {
+    -fx-background-color: #7c73ff;
+    -fx-effect: dropshadow(gaussian, rgba(108,99,255,0.5), 12, 0, 0, 2);
+}
+
+/* === Library === */
+.library-scroll {
+    -fx-background: transparent;
+    -fx-background-color: transparent;
+}
+.library-scroll .viewport { -fx-background-color: transparent; }
+
+.manga-grid {
+    -fx-background-color: transparent;
+}
+
+.manga-card {
+    -fx-background-color: #1a1a2e;
+    -fx-background-radius: 10;
+    -fx-border-color: #2a2a4e;
+    -fx-border-radius: 10;
+    -fx-border-width: 1;
+    -fx-padding: 10;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 8, 0, 0, 2);
+}
+.manga-card:hover {
+    -fx-background-color: #212140;
+    -fx-border-color: #6c63ff;
+    -fx-effect: dropshadow(gaussian, rgba(108,99,255,0.35), 14, 0, 0, 4);
+    -fx-scale-x: 1.03;
+    -fx-scale-y: 1.03;
+}
+
+.manga-title {
+    -fx-font-size: 12px;
+    -fx-font-weight: 600;
+    -fx-text-fill: #ddddf8;
+    -fx-alignment: CENTER;
+    -fx-text-alignment: CENTER;
+}
+
+.manga-progress {
+    -fx-accent: #6c63ff;
+    -fx-background-color: #2a2a4e;
+    -fx-background-radius: 4;
+    -fx-pref-height: 5;
+}
+
+.manga-progress-label {
+    -fx-font-size: 10px;
+    -fx-text-fill: #8888bb;
+}
+
+/* === Reader === */
+.reader-pane {
+    -fx-background-color: #080810;
+}
+
+.page-scroll {
+    -fx-background: transparent;
+    -fx-background-color: transparent;
+}
+.page-scroll .viewport { -fx-background-color: #080810; }
+
+.nav-bar {
+    -fx-background-color: #1a1a2e;
+    -fx-border-color: #2a2a4e;
+    -fx-border-width: 1 0 0 0;
+}
+
+.loading-overlay {
+    -fx-background-color: rgba(10,10,26,0.85);
+}
+.loading-label {
+    -fx-font-size: 16px;
+    -fx-text-fill: #6c63ff;
+    -fx-font-weight: 600;
+}
+
+/* === Settings === */
+.settings-scroll {
+    -fx-background: transparent;
+    -fx-background-color: transparent;
+    -fx-border-color: #2a2a4e;
+    -fx-border-radius: 12;
+    -fx-background-radius: 12;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 20, 0, 0, 10);
+}
+.settings-scroll .viewport { -fx-background-color: #16162a; }
+
+.settings-container {
+    -fx-background-color: transparent;
+}
+
+.section-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: 700;
+    -fx-text-fill: #6c63ff;
+    -fx-padding: 0 0 10 0;
+}
+
+.paths-list {
+    -fx-background-color: #0f0f1a;
+    -fx-background-radius: 8;
+    -fx-border-color: #2a2a4e;
+    -fx-border-radius: 8;
+    -fx-text-fill: #e0e0ff;
+    -fx-font-size: 13px;
+}
+.paths-list .list-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: #e0e0ff;
+    -fx-padding: 8 12;
+}
+.paths-list .list-cell:filled:selected {
+    -fx-background-color: #2a2a4e;
+    -fx-text-fill: #6c63ff;
+}
+.paths-list .list-cell:filled:hover {
+    -fx-background-color: #1e1e38;
+}
+
+.btn-danger {
+    -fx-background-color: #ff4757;
+    -fx-text-fill: white;
+    -fx-font-weight: 600;
+    -fx-background-radius: 8;
+    -fx-padding: 8 16;
+    -fx-cursor: hand;
+}
+.btn-danger:hover {
+    -fx-background-color: #ff6b81;
+}
+
+/* === ProgressBar Premium === */
+.manga-progress {
+    -fx-indeterminate-bar-length: 60;
+    -fx-indeterminate-bar-escape: true;
+    -fx-indeterminate-bar-flip: true;
+    -fx-indeterminate-bar-animation-speed: 2.0;
+}
+.manga-progress .track {
+    -fx-background-color: #2a2a4e;
+    -fx-background-insets: 0;
+    -fx-background-radius: 10;
+}
+.manga-progress .bar {
+    -fx-background-color: linear-gradient(to right, #6c63ff, #ff6b9d);
+    -fx-background-insets: 0;
+    -fx-background-radius: 10;
+}
+
+/* === Badges === */
+.fav-badge {
+    -fx-background-color: rgba(255, 215, 0, 0.9);
+    -fx-background-radius: 0 0 0 10;
+    -fx-padding: 4 8;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1a1a2e;
+    -fx-font-size: 14px;
+}
+.chapter-badge {
+    -fx-background-color: rgba(108, 99, 255, 0.9);
+    -fx-background-radius: 0 0 10 0;
+    -fx-padding: 4 8;
+    -fx-text-fill: white;
+    -fx-font-size: 11px;
+    -fx-font-weight: 600;
+}
+
+
+/* === ScrollBar === */
+.scroll-bar {
+    -fx-background-color: #1a1a2e;
+}
+.scroll-bar .thumb {
+    -fx-background-color: #3a3a6e;
+    -fx-background-radius: 4;
+}
+.scroll-bar .thumb:hover {
+    -fx-background-color: #6c63ff;
+}
+.scroll-bar .track { -fx-background-color: #12121f; }
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button { -fx-background-color: transparent; -fx-padding: 2; }
+.scroll-bar .increment-arrow,
+.scroll-bar .decrement-arrow   { -fx-background-color: #4444aa; }
+
+/* === Light Theme Overrides === */
+.light-theme {
+    -fx-background-color: #f0f0f5;
+}
+.light-theme .root-pane { -fx-background-color: #f0f0f5; }
+.light-theme .top-bar { -fx-background-color: #ffffff; -fx-border-color: #e0e0e0; }
+.light-theme .app-title { -fx-text-fill: #333333; }
+.light-theme .status-label { -fx-text-fill: #666666; }
+.light-theme .manga-card { 
+    -fx-background-color: #ffffff; 
+    -fx-border-color: #e0e0e0;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 8, 0, 0, 2);
+}
+.light-theme .manga-card:hover {
+    -fx-background-color: #f9f9ff;
+    -fx-border-color: #6c63ff;
+}
+.light-theme .manga-title { -fx-text-fill: #333333; }
+.light-theme .btn-secondary {
+    -fx-background-color: #f0f0f5;
+    -fx-text-fill: #333333;
+    -fx-border-color: #cccccc;
+}
+.light-theme .btn-secondary:hover { -fx-background-color: #e0e0eb; }
+.light-theme .reader-pane { -fx-background-color: #e8e8ed; }
+.light-theme .page-scroll .viewport { -fx-background-color: #e8e8ed; }
+.light-theme .nav-bar { -fx-background-color: #ffffff; -fx-border-color: #e0e0e0; }
+.light-theme .btn-nav {
+    -fx-background-color: #f0f0f5;
+    -fx-text-fill: #333333;
+    -fx-border-color: #cccccc;
+}
+.light-theme .btn-nav:hover { -fx-background-color: #e0e0eb; }
+.light-theme .chapter-label { -fx-text-fill: #333333; }
+.light-theme .page-label { -fx-text-fill: #666666; }
+.light-theme .loading-overlay { -fx-background-color: rgba(240,240,245,0.85); }

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.mangareader.app.ui.controller.ReaderController"
+            styleClass="root-pane">
+
+    <!-- Top bar -->
+    <top>
+        <HBox styleClass="top-bar" alignment="CENTER_LEFT" spacing="15">
+            <padding><Insets top="10" right="20" bottom="10" left="20"/></padding>
+            <Button text="← Voltar" onAction="#backToLibrary" styleClass="btn-secondary"/>
+            
+            <VBox spacing="2">
+                <Label fx:id="chapterLabel" styleClass="chapter-label"/>
+                <Label fx:id="pageLabel" styleClass="page-label"/>
+            </VBox>
+
+            <Region HBox.hgrow="ALWAYS"/>
+            
+            <HBox spacing="10" alignment="CENTER">
+                <Button text="Paginação" fx:id="singleModeBtn" onAction="#setSingleMode" styleClass="btn-nav"/>
+                <Button text="Rolo" fx:id="verticalModeBtn" onAction="#setVerticalMode" styleClass="btn-nav"/>
+                <Separator orientation="VERTICAL"/>
+                <Button text="Ajustar Largura" onAction="#fitToWidth" styleClass="btn-secondary"/>
+            </HBox>
+        </HBox>
+    </top>
+
+    <!-- Page viewer -->
+    <center>
+        <StackPane styleClass="reader-pane">
+            <ScrollPane fx:id="scrollPane" pannable="true" styleClass="page-scroll" fitToWidth="true">
+                <VBox fx:id="verticalContainer" alignment="TOP_CENTER" spacing="10">
+                    <StackPane fx:id="imageContainer">
+                        <ImageView fx:id="pageView"
+                                   preserveRatio="true"
+                                   smooth="true"/>
+                    </StackPane>
+                </VBox>
+            </ScrollPane>
+            <!-- Loading overlay -->
+            <StackPane fx:id="loadingOverlay" styleClass="loading-overlay" visible="false">
+                <Label text="Processando PDF..." styleClass="loading-label"/>
+            </StackPane>
+        </StackPane>
+    </center>
+
+    <!-- Bottom navigation -->
+    <bottom>
+        <HBox styleClass="nav-bar" alignment="CENTER" spacing="12">
+            <padding><Insets top="12" right="20" bottom="12" left="20"/></padding>
+            <Button fx:id="prevChapterBtn" text="⏮ Cap. Anterior"
+                    onAction="#prevChapter" styleClass="btn-nav"/>
+            <Button fx:id="prevPageBtn"    text="◀ Anterior"
+                    onAction="#prevPage"    styleClass="btn-nav"/>
+            <Button fx:id="nextPageBtn"    text="Próxima ▶"
+                    onAction="#nextPage"    styleClass="btn-nav-primary"/>
+            <Button fx:id="nextChapterBtn" text="Próx. Cap. ⏭"
+                    onAction="#nextChapter" styleClass="btn-nav"/>
+        </HBox>
+    </bottom>
+</BorderPane>
