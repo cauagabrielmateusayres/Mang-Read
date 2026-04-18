@@ -37,19 +37,23 @@ Um leitor de mangás moderno, rápido e modular, desenvolvido em **JavaFX 21**. 
 
 ## 🚀 Como Executar
 
-### Para Usuários (Executável)
-Basta baixar a versão mais recente na aba [Releases](https://github.com/cauagabrielmateusayres/Mang-Read/releases), extrair o ZIP e rodar o `MangaReader.exe`.
+O Manga Reader é multiplataforma, mas a forma de execução depende do seu objetivo:
 
-### Para Desenvolvedores (Código Fonte)
+### 🪟 Para Usuários Windows (Recomendado)
+Basta baixar a versão mais recente na aba [Releases](https://github.com/cauagabrielmateusayres/Mang-Read/releases), extrair o ZIP e rodar o `MangaReader.exe`. Não é necessário instalar Java.
+
+### 🐧/🍎 Para Usuários Linux e macOS
+Como o projeto é baseado em Java, ele roda nativamente nestes sistemas através do código fonte:
+1. Instale o **JDK 21** e o **Maven**.
+2. Clone o repositório: `git clone https://github.com/cauagabrielmateusayres/Mang-Read.git`
+3. Compile e rode: `mvn clean javafx:run -pl manga-reader-app`
+
+### 💻 Para Desenvolvedores (Qualquer OS)
 ```powershell
-# 1. Clone o repositório
-git clone https://github.com/cauagabrielmateusayres/Mang-Read.git
-cd Mang-Read
-
-# 2. Compile o projeto
+# Compilação completa
 mvn clean install -DskipTests
 
-# 3. Execute o aplicativo
+# Execução em modo dev
 mvn javafx:run -pl manga-reader-app
 ```
 
